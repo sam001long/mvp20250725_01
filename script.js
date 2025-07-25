@@ -10,7 +10,7 @@ let playerScore      = 0,
     maxLevel         = 3,
     countdownActive  = true;
 
-// 初始化
+// 页面加载后
 function initGame(){
   updateAssets();
   startCountdown();
@@ -18,8 +18,8 @@ function initGame(){
 
 function updateAssets(){
   const base = `assets/levels/level${level}/stage${stageVisualIndex}`;
-  document.getElementById('backgroundImage').src = `${base}/background.jpg`;
-  document.getElementById('characterImage').src  = `${base}/character.png`;
+  document.getElementById('backgroundImage').src  = `${base}/background.jpg`;
+  document.getElementById('characterImage').src   = `${base}/character.png`;
   document.getElementById('levelDisplay').innerText = level;
 }
 
@@ -32,8 +32,8 @@ function playSound(id){
 
 function toggleSound(){
   soundOn = !soundOn;
-  document.getElementById('soundToggle').innerText = soundOn ? '🔊':'🔇';
-  document.getElementById('soundHint').style.display = soundOn ? 'none':'block';
+  document.getElementById('soundToggle').innerText = soundOn ? '🔊' : '🔇';
+  document.getElementById('soundHint').style.display = soundOn ? 'none' : 'block';
   const bgm = document.getElementById('audioBgm');
   if(soundOn && !bgmStarted){ bgmStarted=true; bgm.play(); }
   else if(!soundOn) bgm.pause();
@@ -51,7 +51,6 @@ function startCountdown(){
     } else {
       clearInterval(iv);
       cd.style.display = 'none';
-      // 倒计时结束时重置 CPU 拳图可见
       ['rock','paper','scissors'].forEach(m=>{
         document.getElementById(`cpu-${m}`).style.visibility = 'visible';
       });
@@ -65,33 +64,40 @@ function startCountdown(){
 function play(playerMove){
   if(countdownActive || roundEnded) return;
 
+  // 首次互动启动BGM
   if(!bgmStarted && soundOn){
     document.getElementById('audioBgm').play();
     bgmStarted = true;
   }
 
-  // 玩家动画 + 缩放
+  // 玩家动画
   const playerImgs = document.querySelectorAll('.player-hands img');
   playerImgs.forEach(el => el.classList.add('scale'));
-  // CPU 缩放
-  const cpuImg = document.getElementById(`cpu-${playerMove}`); // placeholder
-  // 实际 CPU move:
+
+  // CPU 随机出拳
   const moves = ['rock','paper','scissors'];
   const cpuMove = moves[Math.floor(Math.random()*3)];
-  const cpuImgReal = document.getElementById(`cpu-${cpuMove}`);
-  cpuImgReal.classList.add('scale');
-
-  playSound('audioClick');
-  setTimeout(()=>{
-    playerImgs.forEach(el => el.classList.remove('scale'));
-    cpuImgReal.classList.remove('scale');
-  }, 300);
-
-  // 隐藏非出的 CPU
-  moves.forEach(m => {
-    document.getElementById(`cpu-${m}`).style.visibility = (cpuMove===m?'visible':'hidden');
+  const cpuImgs = moves.map(m => document.getElementById(`cpu-${m}`));
+  // 显示/隐藏并为出拳那张加动画
+  cpuImgs.forEach(imgEl => {
+    if(imgEl.id === `cpu-${cpuMove}`){
+      imgEl.style.visibility = 'visible';
+      imgEl.classList.add('scale');
+    } else {
+      imgEl.style.visibility = 'hidden';
+    }
   });
 
+  // 点击音效
+  playSound('audioClick');
+
+  // 动画结束移除
+  setTimeout(()=>{
+    playerImgs.forEach(el => el.classList.remove('scale'));
+    cpuImgs.forEach(el => el.classList.remove('scale'));
+  }, 300);
+
+  // 判定胜负
   let res = '';
   if(playerMove === cpuMove){
     res = '平手！';
@@ -107,17 +113,19 @@ function play(playerMove){
     stageVisualIndex = 1;
   }
 
+  // 更新UI
   document.getElementById('playerScore').innerText = playerScore;
   document.getElementById('cpuScore').innerText    = cpuScore;
   document.getElementById('result').innerText      = res;
-  playSound(res.startsWith('你贏')?'audioWin':'audioLose');
+  playSound(res.startsWith('你贏') ? 'audioWin' : 'audioLose');
   updateAssets();
 
+  // 显示按钮
   roundEnded = true;
   const btn = document.getElementById('continue');
-  if(playerScore>=winTarget)     btn.innerText='進入下一關';
-  else if(cpuScore>=winTarget)   btn.innerText='重新開始';
-  else                            btn.innerText='繼續';
+  if(playerScore >= winTarget)      btn.innerText = '進入下一關';
+  else if(cpuScore >= winTarget)    btn.innerText = '重新開始';
+  else                               btn.innerText = '繼續';
   btn.style.display = 'block';
 }
 
@@ -125,27 +133,36 @@ function resetRound(){
   const btn = document.getElementById('continue');
   btn.style.display = 'none';
 
-  if(cpuScore>=winTarget){
-    level = 1; playerScore=0; cpuScore=0; stageVisualIndex=1;
+  // 电脑三胜 → 重置
+  if(cpuScore >= winTarget){
+    level = 1; playerScore = 0; cpuScore = 0; stageVisualIndex = 1;
     updateAssets();
-    document.getElementById('playerScore').innerText=0;
-    document.getElementById('cpuScore').innerText=0;
-    document.getElementById('result').innerText='💀 重新開始';
+    ['rock','paper','scissors'].forEach(m=>{
+      document.getElementById(`cpu-${m}`).style.visibility = 'visible';
+    });
+    document.getElementById('playerScore').innerText = 0;
+    document.getElementById('cpuScore').innerText    = 0;
+    document.getElementById('result').innerText      = '💀 重新開始';
     return startCountdown();
   }
 
-  if(playerScore>=winTarget){
-    level = Math.min(level+1, maxLevel);
-    playerScore=0; cpuScore=0; stageVisualIndex=1;
+  // 玩家三胜 → 升关
+  if(playerScore >= winTarget){
+    level = Math.min(level + 1, maxLevel);
+    playerScore = 0; cpuScore = 0; stageVisualIndex = 1;
     updateAssets();
-    document.getElementById('playerScore').innerText=0;
-    document.getElementById('cpuScore').innerText=0;
-    document.getElementById('result').innerText=`🎉 進入第${level}關`;
+    ['rock','paper','scissors'].forEach(m=>{
+      document.getElementById(`cpu-${m}`).style.visibility = 'visible';
+    });
+    document.getElementById('playerScore').innerText = 0;
+    document.getElementById('cpuScore').innerText    = 0;
+    document.getElementById('result').innerText      = `🎉 進入第${level}關`;
     return startCountdown();
   }
 
+  // 常规下一轮
   ['rock','paper','scissors'].forEach(m=>{
-    document.getElementById(`cpu-${m}`).style.visibility='visible';
+    document.getElementById(`cpu-${m}`).style.visibility = 'visible';
   });
   document.getElementById('result').innerText = '請等待倒數...';
   return startCountdown();

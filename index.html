@@ -7,21 +7,18 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body onload="initGame()">
-
   <div class="background-layer">
     <video id="backgroundVideo" autoplay muted loop playsinline onerror="showBgImage()">
       <source id="bgSource" src="" type="video/mp4">
     </video>
     <img id="backgroundImage" src="" alt="背景" />
   </div>
-
   <div class="character-layer">
     <video id="characterVideo" autoplay muted loop playsinline onerror="showCharImage()">
       <source id="charSource" src="" type="video/mp4">
     </video>
     <img id="characterImage" src="" alt="角色" />
   </div>
-
   <div class="ui-layer">
     <button id="soundToggle" onclick="toggleSound()">🔇</button>
     <span id="soundHint" class="sound-hint">請先點此開啟音效</span>
@@ -41,14 +38,11 @@
     </div>
     <button id="continue" onclick="resetRound()">繼續</button>
   </div>
-
   <div id="countdown" class="countdown">3</div>
-
   <audio id="audioClick" src="assets/click.wav"></audio>
   <audio id="audioWin"   src="assets/win_effect.wav"></audio>
   <audio id="audioLose"  src="assets/lose_effect.wav"></audio>
   <audio id="audioBgm"   src="assets/bgm.wav" loop></audio>
-
   <script src="script.js"></script>
 </body>
 </html>

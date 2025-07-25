@@ -8,26 +8,26 @@
 </head>
 <body onload="initGame()">
 
-  <!-- 背景影片/圖片層 -->
+  <!-- 背景層 -->
   <div class="background-layer">
     <video id="backgroundVideo" autoplay muted loop playsinline onerror="showBgImage()">
       <source id="bgSource" src="" type="video/mp4">
     </video>
-    <img id="backgroundImage" src="" alt="背景圖" />
+    <img id="backgroundImage" src="" alt="背景" />
   </div>
 
-  <!-- 角色影片/圖片層 -->
+  <!-- 角色層 -->
   <div class="character-layer">
     <video id="characterVideo" autoplay muted loop playsinline onerror="showCharImage()">
       <source id="charSource" src="" type="video/mp4">
     </video>
-    <img id="characterImage" src="" alt="角色圖" />
+    <img id="characterImage" src="" alt="角色" />
   </div>
 
-  <!-- UI 主層 -->
+  <!-- UI -->
   <div class="ui-layer">
 
-    <!-- 音量開關 -->
+    <!-- 音量按鈕 -->
     <button id="soundToggle" onclick="toggleSound()">🔇</button>
     <span id="soundHint" class="sound-hint">請先點此開啟音效</span>
 
@@ -36,28 +36,28 @@
       關卡 <span id="levelDisplay">1</span> │ 玩家 <span id="playerScore">0</span>：<span id="cpuScore">0</span> 電腦
     </div>
 
-    <!-- CPU 拳圖 -->
+    <!-- CPU 拳，上方居中 -->
     <div class="cpu-hands">
-      <img id="cpu-rock" src="assets/rock.png" alt="">
-      <img id="cpu-paper" src="assets/paper.png" alt="">
-      <img id="cpu-scissors" src="assets/scissors.png" alt="">
+      <img id="cpu-rock" src="assets/rock.png" alt="石頭">
+      <img id="cpu-paper" src="assets/paper.png" alt="布">
+      <img id="cpu-scissors" src="assets/scissors.png" alt="剪刀">
     </div>
 
     <!-- 結果提示 -->
     <div id="result">請等待倒數...</div>
 
-    <!-- 玩家出拳 -->
+    <!-- 玩家拳，下方居中 -->
     <div class="player-hands">
-      <img onclick="play('rock')" src="assets/rock.png" alt="">
-      <img onclick="play('paper')" src="assets/paper.png" alt="">
-      <img onclick="play('scissors')" src="assets/scissors.png" alt="">
+      <img onclick="play('rock')" src="assets/rock.png" alt="石頭">
+      <img onclick="play('paper')" src="assets/paper.png" alt="布">
+      <img onclick="play('scissors')" src="assets/scissors.png" alt="剪刀">
     </div>
 
-    <!-- 繼續／結束 -->
+    <!-- 繼續/結束 按鈕 -->
     <button id="continue" onclick="resetRound()">繼續</button>
   </div>
 
-  <!-- 倒數 -->
+  <!-- 倒數數字 -->
   <div id="countdown" class="countdown">3</div>
 
   <!-- 音效 -->

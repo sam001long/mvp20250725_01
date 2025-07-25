@@ -9,15 +9,13 @@ let playerScore = 0,
     maxStage    = 3,
     maxLevel    = 5;
 
-// 页面载入后立即初始化
+// 页面载入后立即执行
 function initGame(){
-  // 一开始就加载背景与角色
   updateAssets();
-  // 然后开始倒计时
   startCountdown();
 }
 
-// 根据当前关卡与阶段，更新背景/角色图
+// 更新当前背景与角色
 function updateAssets(){
   const base = `assets/levels/level${level}/stage${stageVisualIndex}`;
   document.getElementById('backgroundImage').src  = `${base}/background.jpg`;
@@ -25,7 +23,7 @@ function updateAssets(){
   document.getElementById('levelDisplay').innerText = level;
 }
 
-// 播放音效辅助
+// 播放音效
 function playSound(id){
   if(!soundOn) return;
   const a = document.getElementById(id);
@@ -68,13 +66,13 @@ function startCountdown(){
 function play(playerMove){
   if(roundEnded) return;
 
-  // 第一次互动启动 BGM（若已打开声）
+  // 第一次互动启动 BGM
   if(!bgmStarted && soundOn){
     document.getElementById('audioBgm').play();
     bgmStarted = true;
   }
 
-  // 出拳动画 & 点击音效
+  // 出拳动画 + 点击音
   document.querySelectorAll('.player-hands img').forEach(el => el.classList.add('animate'));
   playSound('audioClick');
   setTimeout(()=>{
@@ -114,38 +112,39 @@ function play(playerMove){
   document.getElementById('result').innerText      = res;
   playSound(res.startsWith('你贏') ? 'audioWin' : 'audioLose');
 
-  // 判断过关或失败
-  if(playerScore >= winTarget){
-    if(level < maxLevel){
-      level++;
-      stageVisualIndex = 1;
-    }
-    document.getElementById('result').innerText = `🎉 過關！進入第${level}關`;
-  } else if(cpuScore >= winTarget){
-    document.getElementById('result').innerText = '💀 電腦勝利，遊戲結束';
-  }
-
-  // 刷新背景/角色
+  // 刷新背景/角色到当前阶段
   updateAssets();
 
   // 显示“繼續”或“遊戲結束”按钮
   roundEnded = true;
   const btn = document.getElementById('continue');
-  btn.innerText = (playerScore >= winTarget || cpuScore >= winTarget) ? '遊戲結束' : '繼續';
+  btn.innerText = '繼續';
   btn.style.display = 'block';
 }
 
-// 点击“繼續”或游戏结束后重置
+// 点击“繼續”后处理下一步或重开
 function resetRound(){
-  if(playerScore >= winTarget || cpuScore >= winTarget){
-    location.reload();
+  // 如果玩家已连赢3把，真正升关在这里执行
+  if(playerScore >= winTarget){
+    if(level < maxLevel){
+      level++;
+    }
+    stageVisualIndex = 1;
+    // 更新图案并提示新关
+    updateAssets();
+    document.getElementById('result').innerText = `🎉 過關！進入第${level}關`;
+    roundEnded = true;
     return;
   }
-  // 重置 CPU 拳头可见
+  // 如果电脑已连输3把，则结束重载
+  if(cpuScore >= winTarget){
+    return location.reload();
+  }
+
+  // 否则正常下一手
   ['rock','paper','scissors'].forEach(m => {
     document.getElementById(`cpu-${m}`).style.visibility = 'visible';
   });
-  // 隐藏按钮，重置文字与状态
   document.getElementById('continue').style.display = 'none';
   document.getElementById('result').innerText = '請等待倒數...';
   roundEnded = false;

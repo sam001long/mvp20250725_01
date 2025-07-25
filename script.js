@@ -6,11 +6,11 @@ let playerScore      = 0,
     bgmStarted       = false,
     level            = 1,
     stageVisualIndex = 1,
-    maxStage         = 4,   // 四阶段：初始、胜1、胜2、胜3
+    maxStage         = 4,   // 四阶段
     maxLevel         = 3,   // 三关卡
     countdownActive  = true;
 
-// 页面载入立即初始化
+// 页面载入时执行
 function initGame(){
   updateAssets();
   startCountdown();
@@ -32,7 +32,7 @@ function playSound(id){
   a.play();
 }
 
-// 静音／有声切换
+// 静音/有声切换
 function toggleSound(){
   soundOn = !soundOn;
   document.getElementById('soundToggle').innerText = soundOn ? '🔊' : '🔇';
@@ -42,23 +42,23 @@ function toggleSound(){
   else if(!soundOn) bgm.pause();
 }
 
-// 加速版倒计时：3次，每隔0.5秒
+// 加速倒计时（每 0.5s 减一次）
 function startCountdown(){
   countdownActive = true;
-  roundEnded = true;  // 锁定出拳，等倒数完毕才解锁
+  roundEnded = true;  // 锁定出拳
   const cd = document.getElementById('countdown');
   let t = 3;
   cd.innerText = t;
   cd.style.display = 'block';
   const iv = setInterval(()=>{
-    if(--t > 0){
+    if(--t > 0) {
       cd.innerText = t;
     } else {
       clearInterval(iv);
       cd.style.display = 'none';
       document.getElementById('result').innerText = '請出拳！';
-      countdownActive = false; // 倒数结束
-      roundEnded = false;      // 解锁出拳
+      countdownActive = false;
+      roundEnded = false; // 解锁出拳
     }
   }, 500);
 }
@@ -72,7 +72,7 @@ function play(playerMove){
     bgmStarted = true;
   }
 
-  // 出拳动画 + 点击音
+  // 出拳动画 + 音效
   document.querySelectorAll('.player-hands img').forEach(el => el.classList.add('animate'));
   playSound('audioClick');
   setTimeout(()=>{
@@ -80,10 +80,10 @@ function play(playerMove){
   }, 200);
 
   // CPU 随机出拳
-  const moves  = ['rock','paper','scissors'];
+  const moves = ['rock','paper','scissors'];
   const cpuMove = moves[Math.floor(Math.random()*3)];
   moves.forEach(m => {
-    document.getElementById(`cpu-${m}`).style.visibility = (cpuMove===m ? 'visible' : 'hidden');
+    document.getElementById(`cpu-${m}`).style.visibility = (cpuMove===m?'visible':'hidden');
   });
 
   // 判定胜负
@@ -104,7 +104,7 @@ function play(playerMove){
     stageVisualIndex = 1;
   }
 
-  // 更新UI
+  // 更新 UI
   document.getElementById('playerScore').innerText = playerScore;
   document.getElementById('cpuScore').innerText    = cpuScore;
   document.getElementById('result').innerText      = res;
@@ -114,41 +114,45 @@ function play(playerMove){
   // 显示按钮
   roundEnded = true;
   const btn = document.getElementById('continue');
-  if(playerScore >= winTarget)      btn.innerText = '進入下一關';
-  else if(cpuScore >= winTarget)    btn.innerText = '重新開始';
-  else                               btn.innerText = '繼續';
+  if(playerScore >= winTarget)     btn.innerText = '進入下一關';
+  else if(cpuScore >= winTarget)   btn.innerText = '重新開始';
+  else                              btn.innerText = '繼續';
   btn.style.display = 'block';
 }
 
-// 处理“继续” / “进入下一關” / “重新开始”
+// 处理“繼續” / “進入下一關” / “重新開始”
 function resetRound(){
   const btn = document.getElementById('continue');
   btn.style.display = 'none';
 
-  // 电脑三胜 → 重置游戏
+  // 电脑连输3把 → 重置到关卡1, 阶段1，并重置分数
   if(cpuScore >= winTarget){
-    level            = 1;
-    playerScore      = 0;
-    cpuScore         = 0;
+    level = 1;
+    playerScore = 0;
+    cpuScore = 0;
     stageVisualIndex = 1;
     updateAssets();
     document.getElementById('playerScore').innerText = 0;
     document.getElementById('cpuScore').innerText    = 0;
     document.getElementById('result').innerText      = '💀 重新開始';
-    return startCountdown();
+    // 等待玩家点击继续后倒计时
+    roundEnded = true;
+    return;
   }
 
-  // 玩家三胜 → 进入下一关
+  // 玩家连赢3把 → 真正升关，并重置分数
   if(playerScore >= winTarget){
     level = Math.min(level + 1, maxLevel);
-    playerScore      = 0;
-    cpuScore         = 0;
+    playerScore = 0;
+    cpuScore = 0;
     stageVisualIndex = 1;
     updateAssets();
     document.getElementById('playerScore').innerText = 0;
     document.getElementById('cpuScore').innerText    = 0;
     document.getElementById('result').innerText      = `🎉 進入第${level}關`;
-    return startCountdown();
+    // 等待玩家点击继续后倒计时
+    roundEnded = true;
+    return;
   }
 
   // 常规继续下一轮
@@ -156,5 +160,12 @@ function resetRound(){
     document.getElementById(`cpu-${m}`).style.visibility = 'visible';
   });
   document.getElementById('result').innerText = '請等待倒數...';
-  return startCountdown();
+  roundEnded = false;
+  startCountdown();
 }
+
+// 重新加载倒计时按钮逻辑
+document.getElementById('continue').onclick = () => {
+  // 继续/升关/重新开始后，统一走 resetRound
+  resetRound();
+};

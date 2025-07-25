@@ -3,40 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>野球拳 簡易版</title>
+  <title>猜拳 MVP v1.2</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body onload="initGame()">
+<body onload="startCountdown()">
+
+  <!-- 背景 -->
   <div class="background-layer">
-    <img id="backgroundImage" src="assets/background.jpg" alt="背景">
+    <img id="background" src="assets/background.jpg" alt="背景">
   </div>
+
+  <!-- 角色 -->
   <div class="character-layer">
-    <img id="characterImage" src="assets/character.png" alt="角色">
+    <img id="character" src="assets/character.png" alt="角色">
   </div>
+
+  <!-- UI 主層 -->
   <div class="ui-layer">
+
+    <!-- 音量開關鈕：fixed 在右上角 -->
     <button id="soundToggle" onclick="toggleSound()">🔇</button>
     <span id="soundHint" class="sound-hint">請先點此開啟音效</span>
+
+    <!-- 記分板 -->
     <div class="scoreboard">
       玩家 <span id="playerScore">0</span>：<span id="cpuScore">0</span> 電腦
+      （先到 3 勝結束）
     </div>
+
+    <!-- CPU 拳圖 -->
     <div class="cpu-hands">
-      <img id="cpu-rock" src="assets/rock.png" alt="石頭">
-      <img id="cpu-paper" src="assets/paper.png" alt="布">
-      <img id="cpu-scissors" src="assets/scissors.png" alt="剪刀">
+      <img id="cpu-rock" src="assets/rock.png" alt="">
+      <img id="cpu-paper" src="assets/paper.png" alt="">
+      <img id="cpu-scissors" src="assets/scissors.png" alt="">
     </div>
+
+    <!-- 結果提示 -->
     <div id="result">請等待倒數...</div>
+
+    <!-- 玩家出拳按鈕 -->
     <div class="player-hands">
-      <img onclick="play('rock')" src="assets/rock.png" alt="石頭">
-      <img onclick="play('paper')" src="assets/paper.png" alt="布">
-      <img onclick="play('scissors')" src="assets/scissors.png" alt="剪刀">
+      <img onclick="play('rock')" src="assets/rock.png" alt="">
+      <img onclick="play('paper')" src="assets/paper.png" alt="">
+      <img onclick="play('scissors')" src="assets/scissors.png" alt="">
     </div>
+
+    <!-- 繼續／結束按鈕 -->
     <button id="continue" onclick="resetRound()">繼續</button>
   </div>
+
+  <!-- 倒數數字 -->
   <div id="countdown" class="countdown">3</div>
+
+  <!-- 音效檔 -->
   <audio id="audioClick" src="assets/click.wav"></audio>
-  <audio id="audioWin"   src="assets/win.wav"></audio>
-  <audio id="audioLose"  src="assets/lose.wav"></audio>
+  <audio id="audioWin"   src="assets/win_effect.wav"></audio>
+  <audio id="audioLose"  src="assets/lose_effect.wav"></audio>
   <audio id="audioBgm"   src="assets/bgm.wav" loop></audio>
+
   <script src="script.js"></script>
 </body>
 </html>

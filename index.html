@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>猜拳 MVP v1.1</title>
+  <title>猜拳 MVP v1.2</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body onload="startCountdown()">
@@ -15,30 +15,44 @@
   </div>
 
   <div class="ui-layer">
-    <!-- 只顯示「目前勝利次數」 -->
+    <!-- 音量開關按鈕 -->
+    <button id="soundToggle" onclick="toggleSound()">🔊</button>
+
+    <!-- 記分板 -->
     <div class="scoreboard">
       玩家 <span id="playerScore">0</span>：<span id="cpuScore">0</span> 電腦
       （先到 3 勝結束）
     </div>
 
+    <!-- CPU 拳圖 -->
     <div class="cpu-hands">
       <img id="cpu-rock" src="assets/rock.png" alt="">
       <img id="cpu-paper" src="assets/paper.png" alt="">
       <img id="cpu-scissors" src="assets/scissors.png" alt="">
     </div>
 
+    <!-- 結果區 -->
     <div id="result">請等待倒數...</div>
 
+    <!-- 玩家按鈕群 -->
     <div class="player-hands">
       <img onclick="play('rock')" src="assets/rock.png" alt="">
       <img onclick="play('paper')" src="assets/paper.png" alt="">
       <img onclick="play('scissors')" src="assets/scissors.png" alt="">
     </div>
 
+    <!-- 繼續／結束 按鈕 -->
     <button id="continue" onclick="resetRound()">繼續</button>
   </div>
 
+  <!-- 倒數數字 -->
   <div id="countdown" class="countdown">3</div>
+
+  <!-- 音效與 BGM -->
+  <audio id="audioClick" src="assets/click.wav"></audio>
+  <audio id="audioWin"   src="assets/win_effect.wav"></audio>
+  <audio id="audioLose"  src="assets/lose_effect.wav"></audio>
+  <audio id="audioBgm"   src="assets/bgm.wav" loop autoplay></audio>
 
   <script src="script.js"></script>
 </body>

@@ -23,8 +23,13 @@ body, html {
   align-items: center; justify-content: center;
   height: 100vh;
 }
+#soundToggle {
+  position: absolute; top: 20px; right: 20px;
+  z-index: 4; font-size: 24px;
+  background: none; border: none; cursor: pointer;
+}
 .scoreboard {
-  position: absolute; top: 20px;
+  position: absolute; top: 60px; /* 音量按鈕下方 */
   font-size: 18px; color: #fff;
   background: rgba(0,0,0,0.5);
   padding: 5px 10px; border-radius: 5px;
@@ -34,6 +39,15 @@ body, html {
 }
 .cpu-hands img, .player-hands img {
   width: 60px; cursor: pointer;
+  transition: transform .1s ease;
+}
+.animate {
+  animation: punch 0.2s ease;
+}
+@keyframes punch {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
 }
 #result {
   font-size: 24px; color: #fff;

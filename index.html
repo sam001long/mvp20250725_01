@@ -3,32 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>猜拳 MVP v1.2</title>
+  <title>野球拳多關卡版</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body onload="startCountdown()">
+<body onload="initGame()">
 
-  <!-- 背景 -->
+  <!-- 背景影片/圖片層 -->
   <div class="background-layer">
-    <img id="background" src="assets/background.jpg" alt="背景">
+    <video id="backgroundVideo" autoplay muted loop playsinline onerror="showBgImage()">
+      <source id="bgSource" src="" type="video/mp4">
+    </video>
+    <img id="backgroundImage" src="" alt="背景圖" />
   </div>
 
-  <!-- 角色 -->
+  <!-- 角色影片/圖片層 -->
   <div class="character-layer">
-    <img id="character" src="assets/character.png" alt="角色">
+    <video id="characterVideo" autoplay muted loop playsinline onerror="showCharImage()">
+      <source id="charSource" src="" type="video/mp4">
+    </video>
+    <img id="characterImage" src="" alt="角色圖" />
   </div>
 
   <!-- UI 主層 -->
   <div class="ui-layer">
 
-    <!-- 音量開關鈕：fixed 在右上角 -->
+    <!-- 音量開關 -->
     <button id="soundToggle" onclick="toggleSound()">🔇</button>
     <span id="soundHint" class="sound-hint">請先點此開啟音效</span>
 
     <!-- 記分板 -->
     <div class="scoreboard">
-      玩家 <span id="playerScore">0</span>：<span id="cpuScore">0</span> 電腦
-      （先到 3 勝結束）
+      關卡 <span id="levelDisplay">1</span> │ 玩家 <span id="playerScore">0</span>：<span id="cpuScore">0</span> 電腦
     </div>
 
     <!-- CPU 拳圖 -->
@@ -41,21 +46,21 @@
     <!-- 結果提示 -->
     <div id="result">請等待倒數...</div>
 
-    <!-- 玩家出拳按鈕 -->
+    <!-- 玩家出拳 -->
     <div class="player-hands">
       <img onclick="play('rock')" src="assets/rock.png" alt="">
       <img onclick="play('paper')" src="assets/paper.png" alt="">
       <img onclick="play('scissors')" src="assets/scissors.png" alt="">
     </div>
 
-    <!-- 繼續／結束按鈕 -->
+    <!-- 繼續／結束 -->
     <button id="continue" onclick="resetRound()">繼續</button>
   </div>
 
-  <!-- 倒數數字 -->
+  <!-- 倒數 -->
   <div id="countdown" class="countdown">3</div>
 
-  <!-- 音效檔 -->
+  <!-- 音效 -->
   <audio id="audioClick" src="assets/click.wav"></audio>
   <audio id="audioWin"   src="assets/win_effect.wav"></audio>
   <audio id="audioLose"  src="assets/lose_effect.wav"></audio>

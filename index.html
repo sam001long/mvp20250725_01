@@ -3,57 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>野球拳 多關卡版</title>
+  <title>野球拳 多關卡 MP4 支援</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body onload="initGame()">
 
-  <!-- 背景圖 -->
+  <!-- 背景层：优先视频，失败后用图片 -->
   <div class="background-layer">
-    <img id="backgroundImage" src="" alt="背景">
+    <video id="backgroundVideo" autoplay muted loop playsinline></video>
+    <img   id="backgroundImage" src="" alt="背景">
   </div>
 
-  <!-- 角色圖 -->
+  <!-- 角色层：优先视频，失败后用图片 -->
   <div class="character-layer">
-    <img id="characterImage" src="" alt="角色">
+    <video id="characterVideo" autoplay muted loop playsinline></video>
+    <img   id="characterImage" src="" alt="角色">
   </div>
 
-  <!-- UI 層 -->
+  <!-- UI 层 -->
   <div class="ui-layer">
-    <!-- 音量開關 -->
+    <!-- 音量开关 -->
     <button id="soundToggle" onclick="toggleSound()">🔇</button>
     <span id="soundHint" class="sound-hint">請先點此開啟音效</span>
 
-    <!-- 記分板 -->
+    <!-- 记分板 -->
     <div class="scoreboard">
       關卡 <span id="levelDisplay">1</span> │ 玩家 <span id="playerScore">0</span>：<span id="cpuScore">0</span> 電腦
     </div>
 
-    <!-- CPU 出拳圖 -->
+    <!-- CPU 出拳选项（默认都可见，出拳时隐藏） -->
     <div class="cpu-hands">
-      <img id="cpu-rock" src="assets/rock.png" alt="石頭">
-      <img id="cpu-paper" src="assets/paper.png" alt="布">
+      <img id="cpu-rock"     src="assets/rock.png"     alt="石頭">
+      <img id="cpu-paper"    src="assets/paper.png"    alt="布">
       <img id="cpu-scissors" src="assets/scissors.png" alt="剪刀">
     </div>
 
-    <!-- 結果提示 -->
+    <!-- 结果提示 -->
     <div id="result">請等待倒數...</div>
 
-    <!-- 玩家出拳圖 -->
+    <!-- 玩家出拳选项 -->
     <div class="player-hands">
-      <img onclick="play('rock')" src="assets/rock.png" alt="石頭">
-      <img onclick="play('paper')" src="assets/paper.png" alt="布">
+      <img onclick="play('rock')"     src="assets/rock.png"     alt="石頭">
+      <img onclick="play('paper')"    src="assets/paper.png"    alt="布">
       <img onclick="play('scissors')" src="assets/scissors.png" alt="剪刀">
     </div>
 
-    <!-- 繼續/結束 按鈕 -->
+    <!-- 按钮 -->
     <button id="continue" onclick="resetRound()">繼續</button>
   </div>
 
-  <!-- 倒數數字 -->
+  <!-- 倒計時 -->
   <div id="countdown" class="countdown">3</div>
 
-  <!-- 音效檔 -->
+  <!-- 音效文件 -->
   <audio id="audioClick" src="assets/click.wav"></audio>
   <audio id="audioWin"   src="assets/win.wav"></audio>
   <audio id="audioLose"  src="assets/lose.wav"></audio>

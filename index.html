@@ -3,46 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>野球拳多關卡版</title>
+  <title>野球拳多關卡版（影像簡化）</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body onload="initGame()">
+
+  <!-- 直接用圖當背景 -->
   <div class="background-layer">
-    <video id="backgroundVideo" autoplay muted loop playsinline onerror="showBgImage()">
-      <source id="bgSource" src="" type="video/mp4">
-    </video>
     <img id="backgroundImage" src="" alt="背景" />
   </div>
+
+  <!-- 直接用圖當角色 -->
   <div class="character-layer">
-    <video id="characterVideo" autoplay muted loop playsinline onerror="showCharImage()">
-      <source id="charSource" src="" type="video/mp4">
-    </video>
     <img id="characterImage" src="" alt="角色" />
   </div>
+
   <div class="ui-layer">
     <button id="soundToggle" onclick="toggleSound()">🔇</button>
     <span id="soundHint" class="sound-hint">請先點此開啟音效</span>
+
     <div class="scoreboard">
       關卡 <span id="levelDisplay">1</span> │ 玩家 <span id="playerScore">0</span>：<span id="cpuScore">0</span> 電腦
     </div>
+
     <div class="cpu-hands">
       <img id="cpu-rock" src="assets/rock.png" alt="石頭">
       <img id="cpu-paper" src="assets/paper.png" alt="布">
       <img id="cpu-scissors" src="assets/scissors.png" alt="剪刀">
     </div>
+
     <div id="result">請等待倒數...</div>
+
     <div class="player-hands">
       <img onclick="play('rock')" src="assets/rock.png" alt="石頭">
       <img onclick="play('paper')" src="assets/paper.png" alt="布">
       <img onclick="play('scissors')" src="assets/scissors.png" alt="剪刀">
     </div>
+
     <button id="continue" onclick="resetRound()">繼續</button>
   </div>
+
   <div id="countdown" class="countdown">3</div>
+
   <audio id="audioClick" src="assets/click.wav"></audio>
   <audio id="audioWin"   src="assets/win_effect.wav"></audio>
   <audio id="audioLose"  src="assets/lose_effect.wav"></audio>
   <audio id="audioBgm"   src="assets/bgm.wav" loop></audio>
+
   <script src="script.js"></script>
 </body>
 </html>

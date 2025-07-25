@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>猜拳 MVP</title><link rel="stylesheet" href="style.css"></head>
+<body>
+  <div class="background-layer"><img id="background" src="assets/background.jpg"></div>
+  <div class="character-layer"><img id="character" src="assets/character.png"></div>
+  <div class="ui-layer">
+    <div class="cpu-hands">
+      <img id="cpu-rock" src="assets/rock.png">
+      <img id="cpu-paper" src="assets/paper.png">
+      <img id="cpu-scissors" src="assets/scissors.png">
+    </div>
+    <div id="result">請出拳！</div>
+    <div class="player-hands">
+      <img onclick="play('rock')" src="assets/rock.png">
+      <img onclick="play('paper')" src="assets/paper.png">
+      <img onclick="play('scissors')" src="assets/scissors.png">
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

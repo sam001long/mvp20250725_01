@@ -23,13 +23,19 @@ body, html {
   align-items: center; justify-content: center;
   height: 100vh;
 }
+/* 音量鈕 */
 #soundToggle {
-  position: absolute; top: 20px; right: 20px;
-  z-index: 4; font-size: 24px;
-  background: none; border: none; cursor: pointer;
+  position: fixed; top: 20px; right: 20px;
+  z-index: 999; font-size: 24px;
+  background: rgba(255,255,255,0.8); border: 1px solid #888;
+  border-radius: 50%; width: 40px; height: 40px; cursor: pointer;
+}
+.sound-hint {
+  position: fixed; top: 70px; right: 20px;
+  color: #fff; font-size: 14px; z-index: 998;
 }
 .scoreboard {
-  position: absolute; top: 60px; /* 音量按鈕下方 */
+  position: absolute; top: 20px;
   font-size: 18px; color: #fff;
   background: rgba(0,0,0,0.5);
   padding: 5px 10px; border-radius: 5px;

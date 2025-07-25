@@ -7,16 +7,23 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body onload="startCountdown()">
+
+  <!-- 背景 -->
   <div class="background-layer">
     <img id="background" src="assets/background.jpg" alt="背景">
   </div>
+
+  <!-- 角色 -->
   <div class="character-layer">
     <img id="character" src="assets/character.png" alt="角色">
   </div>
 
+  <!-- UI 主層 -->
   <div class="ui-layer">
-    <!-- 音量開關按鈕 -->
-    <button id="soundToggle" onclick="toggleSound()">🔊</button>
+
+    <!-- 音量開關鈕：fixed 在右上角 -->
+    <button id="soundToggle" onclick="toggleSound()">🔇</button>
+    <span id="soundHint" class="sound-hint">請先點此開啟音效</span>
 
     <!-- 記分板 -->
     <div class="scoreboard">
@@ -31,28 +38,28 @@
       <img id="cpu-scissors" src="assets/scissors.png" alt="">
     </div>
 
-    <!-- 結果區 -->
+    <!-- 結果提示 -->
     <div id="result">請等待倒數...</div>
 
-    <!-- 玩家按鈕群 -->
+    <!-- 玩家出拳按鈕 -->
     <div class="player-hands">
       <img onclick="play('rock')" src="assets/rock.png" alt="">
       <img onclick="play('paper')" src="assets/paper.png" alt="">
       <img onclick="play('scissors')" src="assets/scissors.png" alt="">
     </div>
 
-    <!-- 繼續／結束 按鈕 -->
+    <!-- 繼續／結束按鈕 -->
     <button id="continue" onclick="resetRound()">繼續</button>
   </div>
 
   <!-- 倒數數字 -->
   <div id="countdown" class="countdown">3</div>
 
-  <!-- 音效與 BGM -->
+  <!-- 音效檔 -->
   <audio id="audioClick" src="assets/click.wav"></audio>
   <audio id="audioWin"   src="assets/win_effect.wav"></audio>
   <audio id="audioLose"  src="assets/lose_effect.wav"></audio>
-  <audio id="audioBgm"   src="assets/bgm.wav" loop autoplay></audio>
+  <audio id="audioBgm"   src="assets/bgm.wav" loop></audio>
 
   <script src="script.js"></script>
 </body>

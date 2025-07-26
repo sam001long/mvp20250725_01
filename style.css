@@ -156,19 +156,21 @@ body, html {
   z-index: 3;
 }
 
-/* 底部可点击广告栏（16:3 比例，高度 60px） */
+/* 底部可点击广告栏（16:3 比例，高度 60px），Flex 中心对齐 */
 #adBanner {
   position: fixed;
   left: 0; right: 0;
   bottom: env(safe-area-inset-bottom, 10px);
   height: 60px;
   aspect-ratio: 16 / 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-image: url('assets/ad-320x60.png');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
   box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
   z-index: 2;
-  display: block;
   padding-bottom: constant(safe-area-inset-bottom);
 }

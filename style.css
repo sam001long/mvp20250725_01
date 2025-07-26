@@ -1,62 +1,111 @@
+/* 全局重置 */
 body, html {
-  margin: 0; padding: 0; overflow: hidden; height: 100%; font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  font-family: sans-serif;
 }
 
-/* 背景 & 角色 层不动 */
-.background-layer, .character-layer {
-  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+/* 背景 & 角色 层 */
+.background-layer,
+.character-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
 }
 .background-layer video,
 .background-layer img {
-  width: 100%; height: 100%; object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .character-layer video,
 .character-layer img {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-  max-width: 80%; max-height: 80%; object-fit: contain;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
   pointer-events: none;
 }
 
-.ui-layer { position: relative; z-index: 2; height: 100vh; }
+/* UI 层 */
+.ui-layer {
+  position: relative;
+  z-index: 2;
+  height: 100vh;
+}
 
 /* 音量开关 */
 #soundToggle {
-  position: fixed; top: 20px; right: 20px; z-index: 999;
-  font-size: 24px; background: rgba(255,255,255,0.8);
-  border-radius: 50%; width: 40px; height: 40px; border: none; cursor: pointer;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
+  font-size: 24px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
 }
 .sound-hint {
-  position: fixed; top: 70px; right: 20px; z-index: 998;
-  color: #fff; font-size: 14px;
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  z-index: 998;
+  color: #fff;
+  font-size: 14px;
 }
 
-/* 记分板 */
+/* 记分板，一行显示不换行 */
 .scoreboard {
-  position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
-  font-size: 18px; color: #fff;
-  background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 5px;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  color: #fff;
+  background: rgba(0,0,0,0.5);
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
 }
 
-/* CPU 出拳图往上移一点 */
+/* CPU 出拳图——稍微往上移 */
 .cpu-hands {
   position: absolute;
-  top: 25%;               /* 原来 30% 调整为 25% */
-  left: 50%; transform: translateX(-50%);
-  display: flex; gap: 20px;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
 }
 .cpu-hands img {
-  width: 80px; height: 80px;
+  width: 80px;
+  height: 80px;
 }
 
-/* 玩家出拳图往上移一点 */
+/* 玩家出拳图——往上移 */
 .player-hands {
   position: absolute;
-  bottom: 180px;          /* 原来 120px 调整为 180px */
-  left: 50%; transform: translateX(-50%);
-  display: flex; gap: 20px;
+  bottom: 180px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
 }
 .player-hands img {
-  width: 80px; height: 80px; cursor: pointer; transition: transform .1s ease;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  transition: transform .1s ease;
 }
 
 /* 缩放动画 */
@@ -65,24 +114,47 @@ body, html {
   50%  { transform: scale(1.6); }
   100% { transform: scale(1); }
 }
-.scale { animation: scale-punch .3s ease-in-out; }
+.scale {
+  animation: scale-punch .3s ease-in-out;
+}
 
-/* 按钮也往上移 */
+/* 继续按钮 */
 #continue {
   position: absolute;
-  bottom: 120px;          /* 原来 40px 调整为 120px */
-  left: 50%; transform: translateX(-50%);
-  display: none; padding: 10px 20px; font-size: 18px;
-  border: none; background: #fff; border-radius: 8px; cursor: pointer; z-index: 3;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 3;
 }
 
-/* 倒计时 & 结果 */
+/* 倒计时数字 */
 .countdown {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-  font-size: 72px; color: #fff; z-index: 3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 72px;
+  color: #fff;
+  z-index: 3;
 }
+
+/* 结果提示 */
 #result {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-  font-size: 24px; color: #fff;
-  background: rgba(0,0,0,0.5); padding: 8px 20px; border-radius: 8px; z-index: 3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  color: #fff;
+  background: rgba(0,0,0,0.5);
+  padding: 8px 20px;
+  border-radius: 8px;
+  z-index: 3;
 }

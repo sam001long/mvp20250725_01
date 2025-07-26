@@ -8,13 +8,13 @@
 </head>
 <body onload="initGame()">
 
-  <!-- 背景层 -->
+  <!-- 背景层：优先视频，否则图片 -->
   <div class="background-layer">
     <video id="backgroundVideo" autoplay muted loop playsinline></video>
     <img   id="backgroundImage" src="" alt="背景">
   </div>
 
-  <!-- 角色层 -->
+  <!-- 角色层：优先视频，否则图片 -->
   <div class="character-layer">
     <video id="characterVideo" autoplay muted loop playsinline></video>
     <img   id="characterImage" src="" alt="角色">
@@ -50,7 +50,11 @@
 
   <!-- 底部可点击广告栏 -->
   <a id="adBanner" href="https://你的廣告鏈接.com" target="_blank" rel="noopener">
-    <span>廣告預定位置</span>
+    <img
+      src="assets/ad-320x60.png"
+      srcset="assets/ad-640x120.png 2x"
+      alt="廣告預定位置"
+    >
   </a>
 
   <audio id="audioClick" src="assets/click.wav"></audio>

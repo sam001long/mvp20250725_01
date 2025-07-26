@@ -123,23 +123,20 @@ body, html {
   z-index: 3;
 }
 
-/* 底部可点选广告栏 */
+/* 底部可点击广告栏 */
 #adBanner {
   position: fixed; left: 0; right: 0;
   bottom: env(safe-area-inset-bottom, 10px);
-  height: 60px; aspect-ratio: 16 / 3;
+  height: 60px; /* 固定广告高度 */
   display: flex; justify-content: center; align-items: center;
-  background-image: url('assets/ad-320x60.png');
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: contain;
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
   z-index: 2;
+  background: rgba(0,0,0,0.2); /* 可选底色 */
   padding-bottom: constant(safe-area-inset-bottom);
 }
-/* 广告文字居中且不拦截点击 */
-#adBanner span {
-  pointer-events: none;
-  color: #fff;
-  font-size: 16px;
+
+/* 广告图等比居中 */
+#adBanner img {
+  height: 100%;  /* 撑满容器高度 */
+  width: auto;   /* 宽度按比例自适应 */
+  display: block;
 }

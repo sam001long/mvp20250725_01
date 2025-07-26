@@ -1,6 +1,8 @@
 body, html {
   margin: 0; padding: 0; overflow: hidden; height: 100%; font-family: sans-serif;
 }
+
+/* 背景 & 角色 层不动 */
 .background-layer, .character-layer {
   position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
 }
@@ -35,10 +37,25 @@ body, html {
   background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 5px;
 }
 
-/* 出拳选项 */
-.cpu-hands { position: absolute; top: 30%; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; }
-.player-hands { position: absolute; bottom: 120px; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; }
-.cpu-hands img, .player-hands img {
+/* CPU 出拳图往上移一点 */
+.cpu-hands {
+  position: absolute;
+  top: 25%;               /* 原来 30% 调整为 25% */
+  left: 50%; transform: translateX(-50%);
+  display: flex; gap: 20px;
+}
+.cpu-hands img {
+  width: 80px; height: 80px;
+}
+
+/* 玩家出拳图往上移一点 */
+.player-hands {
+  position: absolute;
+  bottom: 180px;          /* 原来 120px 调整为 180px */
+  left: 50%; transform: translateX(-50%);
+  display: flex; gap: 20px;
+}
+.player-hands img {
   width: 80px; height: 80px; cursor: pointer; transition: transform .1s ease;
 }
 
@@ -50,17 +67,20 @@ body, html {
 }
 .scale { animation: scale-punch .3s ease-in-out; }
 
+/* 按钮也往上移 */
 #continue {
-  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+  position: absolute;
+  bottom: 120px;          /* 原来 40px 调整为 120px */
+  left: 50%; transform: translateX(-50%);
   display: none; padding: 10px 20px; font-size: 18px;
   border: none; background: #fff; border-radius: 8px; cursor: pointer; z-index: 3;
 }
 
+/* 倒计时 & 结果 */
 .countdown {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
   font-size: 72px; color: #fff; z-index: 3;
 }
-
 #result {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
   font-size: 24px; color: #fff;

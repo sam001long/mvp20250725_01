@@ -7,34 +7,40 @@ body, html {
   font-family: sans-serif;
 }
 
-/* 背景 & 角色 层 */
-.background-layer,
-.character-layer {
+/* 背景层，z-index:0 */
+.background-layer {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 0;
 }
 .background-layer video,
 .background-layer img {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   object-fit: cover;
+  pointer-events: none;
+}
+
+/* 角色层，z-index:1 */
+.character-layer {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 1;
 }
 .character-layer video,
 .character-layer img {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  max-width: 80%;
-  max-height: 80%;
+  max-width: 100%; max-height: 100%;
   object-fit: contain;
   pointer-events: none;
 }
 
-/* UI 层 */
+/* UI 层，z-index:2 */
 .ui-layer {
   position: relative;
   z-index: 2;
@@ -43,32 +49,24 @@ body, html {
 
 /* 音量开关 */
 #soundToggle {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 999;
+  position: fixed; top: 20px; right: 20px;
+  z-index: 3;
   font-size: 24px;
   background: rgba(255,255,255,0.8);
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 40px; height: 40px;
   border: none;
   cursor: pointer;
 }
 .sound-hint {
-  position: fixed;
-  top: 70px;
-  right: 20px;
-  z-index: 998;
-  color: #fff;
-  font-size: 14px;
+  position: fixed; top: 70px; right: 20px;
+  z-index: 3;
+  color: #fff; font-size: 14px;
 }
 
-/* 记分板，一行显示不换行 */
+/* 记分板：一行不换行 */
 .scoreboard {
-  position: absolute;
-  top: 20px;
-  left: 50%;
+  position: absolute; top: 20px; left: 50%;
   transform: translateX(-50%);
   font-size: 18px;
   color: #fff;
@@ -76,34 +74,30 @@ body, html {
   padding: 5px 10px;
   border-radius: 5px;
   white-space: nowrap;
+  z-index: 3;
 }
 
-/* CPU 出拳图——稍微往上移 */
+/* CPU 拳头（往上移） */
 .cpu-hands {
-  position: absolute;
-  top: 25%;
-  left: 50%;
+  position: absolute; top: 25%; left: 50%;
   transform: translateX(-50%);
-  display: flex;
-  gap: 20px;
+  display: flex; gap: 20px;
+  z-index: 3;
 }
 .cpu-hands img {
-  width: 80px;
-  height: 80px;
+  width: 80px; height: 80px;
+  cursor: default;
 }
 
-/* 玩家出拳图——往上移 */
+/* 玩家 拳头（往上移） */
 .player-hands {
-  position: absolute;
-  bottom: 180px;
-  left: 50%;
+  position: absolute; bottom: 180px; left: 50%;
   transform: translateX(-50%);
-  display: flex;
-  gap: 20px;
+  display: flex; gap: 20px;
+  z-index: 3;
 }
 .player-hands img {
-  width: 80px;
-  height: 80px;
+  width: 80px; height: 80px;
   cursor: pointer;
   transition: transform .1s ease;
 }
@@ -118,11 +112,9 @@ body, html {
   animation: scale-punch .3s ease-in-out;
 }
 
-/* 继续按钮 */
+/* 按钮（往上移） */
 #continue {
-  position: absolute;
-  bottom: 120px;
-  left: 50%;
+  position: absolute; bottom: 120px; left: 50%;
   transform: translateX(-50%);
   display: none;
   padding: 10px 20px;
@@ -136,25 +128,18 @@ body, html {
 
 /* 倒计时数字 */
 .countdown {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 72px;
-  color: #fff;
+  font-size: 72px; color: #fff;
   z-index: 3;
 }
 
 /* 结果提示 */
 #result {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 24px;
-  color: #fff;
+  font-size: 24px; color: #fff;
   background: rgba(0,0,0,0.5);
-  padding: 8px 20px;
-  border-radius: 8px;
+  padding: 8px 20px; border-radius: 8px;
   z-index: 3;
 }

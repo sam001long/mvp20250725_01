@@ -63,8 +63,7 @@ body, html {
   position: fixed;
   top: 70px; right: 20px;
   z-index: 3;
-  color: #fff;
-  font-size: 14px;
+  color: #fff; font-size: 14px;
 }
 
 /* 记分板，一行显示 */
@@ -81,7 +80,7 @@ body, html {
   z-index: 3;
 }
 
-/* CPU 出拳区 */
+/* CPU 出拳图 */
 .cpu-hands {
   position: absolute;
   top: 25%; left: 50%;
@@ -94,10 +93,11 @@ body, html {
   cursor: default;
 }
 
-/* 玩家出拳区 */
+/* 玩家 出拳图 */
 .player-hands {
   position: absolute;
-  bottom: 180px; left: 50%;
+  bottom: calc(180px + 60px); /* 已考虑广告高度60px */
+  left: 50%;
   transform: translateX(-50%);
   display: flex; gap: 20px;
   z-index: 3;
@@ -121,7 +121,8 @@ body, html {
 /* 继续按钮 */
 #continue {
   position: absolute;
-  bottom: 120px; left: 50%;
+  bottom: calc(120px + 60px); /* 已考虑广告高度60px */
+  left: 50%;
   transform: translateX(-50%);
   display: none;
   padding: 10px 20px;
@@ -136,18 +137,20 @@ body, html {
 /* 倒计时数字 */
 .countdown {
   position: absolute;
-  top: 50%; left: 50%;
+  top: 45%; /* 往上移一点 */
+  left: 50%;
   transform: translate(-50%, -50%);
   font-size: 72px;
   color: #fff;
   z-index: 3;
 }
 
-/* 结果提示 */
+/* 结果提示（請出拳） */
 #result {
   position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
+  top: 45%; /* 从 50% 调整到 45% */
+  left: 50%;
+  transform: translate(-50%, -60%); /* 往上偏移更多 */
   font-size: 24px;
   color: #fff;
   background: rgba(0,0,0,0.5);
@@ -174,12 +177,4 @@ body, html {
 #adBanner iframe {
   max-height: 100%;
   width: auto;
-}
-
-/* 推动出拳和按钮区域不被广告挡住 */
-#continue {
-  bottom: calc(120px + 60px);
-}
-.player-hands {
-  bottom: calc(180px + 60px);
 }

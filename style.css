@@ -10,8 +10,7 @@ body, html {
 /* ---------- 背景层 (z-index:0) ---------- */
 .background-layer {
   position: fixed; top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  z-index: 0;
+  width: 100vw; height: 100vh; z-index: 0;
 }
 .background-layer video,
 .background-layer img {
@@ -24,8 +23,7 @@ body, html {
 /* ---------- 角色层 (z-index:1) ---------- */
 .character-layer {
   position: fixed; top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  z-index: 1;
+  width: 100vw; height: 100vh; z-index: 1;
 }
 .character-layer video,
 .character-layer img {
@@ -130,17 +128,17 @@ body, html {
   z-index: 3;
 }
 
-/* ---------- 底部广告栏 (z-index:0) ---------- */
+/* ---------- 底部广告栏 (z-index:1) ---------- */
 #adBanner {
   position: fixed;
   left: 0; right: 0;
-  bottom: env(safe-area-inset-bottom, 10px);
-  height: 60px;                       /* 固定高度 */
+  bottom: 0;                      /* 贴底部 */
+  height: 60px;                   /* 固定高度 */
   background-image: url('assets/ad-320x60.png');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;           /* 等比完整显示 */
-  z-index: 0;                         /* 置于游戏 UI 之下 */
+  background-size: auto 100%;     /* 垂直方向铺满，高度 60px */
+  z-index: 1;                     /* 在背景与角色层之后，UI 之下 */
 }
 
 /* Retina 2x 图 */

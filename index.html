@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>野球拳2全民猜猜樂</title>
+  <title>野球拳 多关卡 MP4 支援</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body onload="initGame()">
 
-  <!-- 背景层：优先视频，否则图片 -->
+  <!-- 背景层 -->
   <div class="background-layer">
     <video id="backgroundVideo" autoplay muted loop playsinline></video>
     <img   id="backgroundImage" src="" alt="背景">
   </div>
 
-  <!-- 角色层：优先视频，否则图片 -->
+  <!-- 角色层 -->
   <div class="character-layer">
     <video id="characterVideo" autoplay muted loop playsinline></video>
     <img   id="characterImage" src="" alt="角色">
@@ -22,50 +22,41 @@
 
   <!-- UI 层 -->
   <div class="ui-layer">
-    <!-- 音量开关 -->
     <button id="soundToggle" onclick="toggleSound()">🔇</button>
     <span id="soundHint" class="sound-hint">請先點此開啟音效</span>
 
-    <!-- 记分板 -->
     <div class="scoreboard">
       關卡 <span id="levelDisplay">1</span> │ 玩家 <span id="playerScore">0</span>：<span id="cpuScore">0</span> 電腦
     </div>
 
-    <!-- CPU 出拳 -->
     <div class="cpu-hands">
       <img id="cpu-rock"     src="assets/rock.png"     alt="石頭">
       <img id="cpu-paper"    src="assets/paper.png"    alt="布">
       <img id="cpu-scissors" src="assets/scissors.png" alt="剪刀">
     </div>
 
-    <!-- 提示文字 -->
     <div id="result">請等待倒數...</div>
 
-    <!-- 玩家出拳 -->
     <div class="player-hands">
       <img onclick="play('rock')"     src="assets/rock.png"     alt="石頭">
       <img onclick="play('paper')"    src="assets/paper.png"    alt="布">
       <img onclick="play('scissors')" src="assets/scissors.png" alt="剪刀">
     </div>
 
-    <!-- 繼續/進關/重新開始 按鈕 -->
     <button id="continue" onclick="resetRound()">繼續</button>
   </div>
 
-  <!-- 倒計時 -->
   <div id="countdown" class="countdown">3</div>
 
-  <!-- 底部可点选广告栏 -->
+  <!-- 底部可点击广告栏 -->
   <a id="adBanner" href="https://你的廣告鏈接.com" target="_blank" rel="noopener">
-    <!-- 背景图方式，无需内部内容 -->
+    <span>廣告預定位置</span>
   </a>
 
-  <!-- 音效文件 -->
   <audio id="audioClick" src="assets/click.wav"></audio>
   <audio id="audioWin"   src="assets/win.wav"></audio>
   <audio id="audioLose"  src="assets/lose.wav"></audio>
   <audio id="audioBgm"   src="assets/bgm.wav" loop></audio>
-
   <script src="script.js"></script>
 </body>
 </html>

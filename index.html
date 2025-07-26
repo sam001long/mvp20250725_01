@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>野球拳 多关卡 MP4 支援</title>
+  <title>野球拳 多關卡 MP4 支援</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body onload="initGame()">
 
-  <!-- 背景层：优先视频，否则图片 -->
+  <!-- 背景層 -->
   <div class="background-layer">
     <video id="backgroundVideo" autoplay muted loop playsinline></video>
     <img   id="backgroundImage" src="" alt="背景">
   </div>
 
-  <!-- 角色层：优先视频，否则图片 -->
+  <!-- 角色層 -->
   <div class="character-layer">
     <video id="characterVideo" autoplay muted loop playsinline></video>
     <img   id="characterImage" src="" alt="角色">
   </div>
 
-  <!-- UI 层 -->
+  <!-- UI 層 -->
   <div class="ui-layer">
     <button id="soundToggle" onclick="toggleSound()">🔇</button>
     <span id="soundHint" class="sound-hint">請先點此開啟音效</span>
@@ -48,14 +48,16 @@
 
   <div id="countdown" class="countdown">3</div>
 
-  <!-- 底部可点击广告栏 -->
-  <a id="adBanner" href="https://你的廣告鏈接.com" target="_blank" rel="noopener">
-    <img
-      src="assets/ad-320x60.png"
-      srcset="assets/ad-640x120.png 2x"
-      alt="廣告預定位置"
-    >
-  </a>
+  <!-- 廣告欄位：圖片，整區可點 -->
+  <div id="adBanner">
+    <a href="https://你的廣告鏈接.com" target="_blank" rel="noopener">
+      <img
+        src="assets/ad-320x60.png"
+        srcset="assets/ad-640x120.png 2x"
+        alt="廣告預定位置"
+      >
+    </a>
+  </div>
 
   <audio id="audioClick" src="assets/click.wav"></audio>
   <audio id="audioWin"   src="assets/win.wav"></audio>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>野球拳 多关卡 MP4 支援</title>
+  <title>野球拳2全民猜猜樂</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body onload="initGame()">
@@ -55,14 +55,10 @@
   <!-- 倒計時 -->
   <div id="countdown" class="countdown">3</div>
 
-  <!-- 底部广告栏 -->
-  <div id="adBanner">
-    <img
-      src="assets/ad-320x60.png"
-      srcset="assets/ad-640x120.png 2x"
-      alt="廣告預定位置"
-    >
-  </div>
+  <!-- 底部可点选广告栏 -->
+  <a id="adBanner" href="https://你的廣告鏈接.com" target="_blank" rel="noopener">
+    <!-- 背景图方式，无需内部内容 -->
+  </a>
 
   <!-- 音效文件 -->
   <audio id="audioClick" src="assets/click.wav"></audio>

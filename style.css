@@ -131,7 +131,7 @@ body, html {
   z-index: 11;
 }
 
-/* ---------- 底部广告栏 (z-index:5) ---------- */
+/* ---------- 底部广告栏 (z-index:20) ---------- */
 #adBanner {
   position: fixed;
   left: 0; right: 0; bottom: 0;
@@ -140,7 +140,7 @@ body, html {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  z-index: 5;
+  z-index: 20;  /* 提升到 UI 之上，保证可点击 */
 }
 
 /* Retina 2x 图 */

@@ -8,19 +8,19 @@
 </head>
 <body onload="initGame()">
 
-  <!-- 背景層 -->
+  <!-- 背景层 -->
   <div class="background-layer">
     <video id="backgroundVideo" autoplay muted loop playsinline></video>
-    <img   id="backgroundImage" src="" alt="背景" />
+    <img id="backgroundImage" src="" alt="背景" />
   </div>
 
-  <!-- 角色層 -->
+  <!-- 角色层 -->
   <div class="character-layer">
     <video id="characterVideo" autoplay muted loop playsinline></video>
-    <img   id="characterImage" src="" alt="角色" />
+    <img id="characterImage" src="" alt="角色" />
   </div>
 
-  <!-- UI 層 -->
+  <!-- UI 层 -->
   <div class="ui-layer">
     <button id="soundToggle" onclick="toggleSound()">🔇</button>
     <span id="soundHint" class="sound-hint">請先點此開啟音效</span>
@@ -30,16 +30,16 @@
     </div>
 
     <div class="cpu-hands">
-      <img id="cpu-rock"     src="assets/rock.png"     alt="石頭" />
-      <img id="cpu-paper"    src="assets/paper.png"    alt="布" />
+      <img id="cpu-rock" src="assets/rock.png" alt="石頭" />
+      <img id="cpu-paper" src="assets/paper.png" alt="布" />
       <img id="cpu-scissors" src="assets/scissors.png" alt="剪刀" />
     </div>
 
     <div id="result">請等待倒數...</div>
 
     <div class="player-hands">
-      <img onclick="play('rock')"     src="assets/rock.png"     alt="石頭" />
-      <img onclick="play('paper')"    src="assets/paper.png"    alt="布" />
+      <img onclick="play('rock')" src="assets/rock.png" alt="石頭" />
+      <img onclick="play('paper')" src="assets/paper.png" alt="布" />
       <img onclick="play('scissors')" src="assets/scissors.png" alt="剪刀" />
     </div>
 
@@ -53,14 +53,25 @@
      href="https://www.instagram.com/lan_lan_mao?igsh=MWxrYW5kMno0MW1ieA%3D%3D&utm_source=qr"
      target="_blank"
      rel="noopener noreferrer"
-     title="點此查看廣告詳情">
-  </a>
+     title="點此查看廣告詳情"></a>
 
-  <!-- 音效 -->
-  <audio id="audioClick" src="assets/click.wav"></audio>
-  <audio id="audioWin"   src="assets/win.wav"></audio>
-  <audio id="audioLose"  src="assets/lose.wav"></audio>
-  <audio id="audioBgm"   src="assets/bgm.wav" loop></audio>
+  <!-- 音效：WAV + MP3 双格式 -->
+  <audio id="audioClick" preload="auto">
+    <source src="assets/click.wav" type="audio/wav">
+    <source src="assets/click.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="audioWin" preload="auto">
+    <source src="assets/win.wav" type="audio/wav">
+    <source src="assets/win.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="audioLose" preload="auto">
+    <source src="assets/lose.wav" type="audio/wav">
+    <source src="assets/lose.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="audioBgm" loop preload="auto">
+    <source src="assets/bgm.wav" type="audio/wav">
+    <source src="assets/bgm.mp3" type="audio/mpeg">
+  </audio>
 
   <script src="script.js"></script>
 </body>

@@ -1,17 +1,26 @@
+// script.js
+
 let playerScore      = 0,
     cpuScore         = 0,
     roundEnded       = false,
     winTarget        = 3,
     soundOn          = false,
-    bgmStarted       = false,
     level            = 1,
     stageVisualIndex = 1,
     maxStage         = 4,
     maxLevel         = 3,
     countdownActive  = true;
 
+let audioBgm;
+
 // 初始化
 function initGame(){
+  // 取 BGM 元素并初始化
+  audioBgm = document.getElementById('audioBgm');
+  audioBgm.loop = true;
+  audioBgm.muted = true;
+  audioBgm.play().catch(()=>{}); // 静音自动 play 以便后续 unmuted 时能立即听到
+
   updateAssets();
   startCountdown();
 }
@@ -54,25 +63,29 @@ function updateAssets(){
   document.getElementById('levelDisplay').innerText = level;
 }
 
-// 播放音效
+// 播放音效（点击、胜利、失败）
 function playSound(id){
   if(!soundOn) return;
   const a = document.getElementById(id);
+  if(!a) return;
   a.currentTime = 0;
-  a.play();
+  a.play().catch(()=>{});
 }
 
 // 切換靜音/有聲
 function toggleSound(){
   soundOn = !soundOn;
-  document.getElementById('soundToggle').innerText = soundOn ? '🔊':'🔇';
-  document.getElementById('soundHint').style.display = soundOn ? 'none':'block';
-  const bgm = document.getElementById('audioBgm');
-  if(soundOn && !bgmStarted){ bgmStarted=true; bgm.play(); }
-  else if(!soundOn) bgm.pause();
+  const btn = document.getElementById('soundToggle');
+  const hint = document.getElementById('soundHint');
+
+  btn.innerText = soundOn ? '🔊' : '🔇';
+  hint.style.display = soundOn ? 'none' : 'block';
+
+  // 只用 muted 控制，不 pause
+  audioBgm.muted = !soundOn;
 }
 
-// 倒計時（0.5s一次，共3次）
+// 倒計時（0.5s 一次，共 3 次）
 function startCountdown(){
   countdownActive = true;
   roundEnded = true;
@@ -99,13 +112,11 @@ function startCountdown(){
 // 玩家出拳
 function play(playerMove){
   if(countdownActive || roundEnded) return;
-  if(!bgmStarted && soundOn){
-    document.getElementById('audioBgm').play();
-    bgmStarted = true;
-  }
+
+  // 点击音效
   playSound('audioClick');
 
-  // 只保留玩家所選並縮放
+  // 玩家动画
   document.querySelectorAll('.player-hands img').forEach(el=>{
     if(el.getAttribute('onclick')===`play('${playerMove}')`){
       el.style.visibility = 'visible';
@@ -115,7 +126,7 @@ function play(playerMove){
     }
   });
 
-  // CPU 隨機並只保留一張、縮放
+  // CPU 随机
   const moves = ['rock','paper','scissors'];
   const cpuMove = moves[Math.floor(Math.random()*3)];
   moves.forEach(m=>{
@@ -128,14 +139,14 @@ function play(playerMove){
     }
   });
 
-  // 動畫結束移除
+  // 动画结束移除
   setTimeout(()=>{
     document.querySelectorAll('.player-hands img, .cpu-hands img').forEach(el=>{
       el.classList.remove('scale');
     });
   }, 300);
 
-  // 判定
+  // 判定胜负
   let res = '';
   if(playerMove===cpuMove){
     res = '平手！';
@@ -155,7 +166,8 @@ function play(playerMove){
   document.getElementById('playerScore').innerText = playerScore;
   document.getElementById('cpuScore').innerText    = cpuScore;
   document.getElementById('result').innerText      = res;
-  playSound(res.startsWith('你贏')?'audioWin':'audioLose');
+  playSound(res.startsWith('你贏') ? 'audioWin' : 'audioLose');
+
   updateAssets();
 
   // 顯示按鈕
@@ -197,12 +209,10 @@ function resetRound(){
       document.getElementById('result').innerText=`🎉 進入第${level}關`;
       return startCountdown();
     } else {
-      // 最後一關通關
+      // 通關
       document.getElementById('result').innerText = '🎊 恭喜破關！';
       btn.innerText = '重新開始';
-      btn.style.display = 'block';
-      btn.onclick = () => {
-        // 完全重置
+      btn.onclick = ()=>{
         level=1; playerScore=0; cpuScore=0; stageVisualIndex=1;
         updateAssets();
         document.querySelectorAll('.cpu-hands img, .player-hands img').forEach(el=>{
@@ -210,10 +220,11 @@ function resetRound(){
         });
         document.getElementById('playerScore').innerText=0;
         document.getElementById('cpuScore').innerText=0;
-        btn.innerText = '繼續';
-        btn.onclick = resetRound;
+        btn.innerText='繼續';
+        btn.onclick=resetRound;
         startCountdown();
       };
+      btn.style.display='block';
       return;
     }
   }
@@ -223,5 +234,11 @@ function resetRound(){
     el.style.visibility='visible';
   });
   document.getElementById('result').innerText='請等待倒數...';
-  return startCountdown();
+  startCountdown();
 }
+
+// 暴露給 HTML
+window.initGame    = initGame;
+window.toggleSound = toggleSound;
+window.play        = play;
+window.resetRound  = resetRound;
